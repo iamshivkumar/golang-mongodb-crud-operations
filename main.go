@@ -57,7 +57,7 @@ type Number struct {
 
 //AddNumber is
 func AddNumber(number Number) error {
-	client, err := src.GetMongoClient()
+	client, err := connections.GetMongoClient()
 	if err != nil {
 		return err
 	}
@@ -75,7 +75,7 @@ func AddNumbers(list []Number) error {
 	for i, v := range list {
 		insertableList[i] = v
 	}
-	client, err := src.GetMongoClient()
+	client, err := connections.GetMongoClient()
 	if err != nil {
 		return err
 	}
@@ -91,7 +91,7 @@ func AddNumbers(list []Number) error {
 func GetNumberByName(name string) (Number, error) {
 	result := Number{}
 	filter := bson.D{primitive.E{Key: "name", Value: "pi"}}
-	client, err := src.GetMongoClient()
+	client, err := connections.GetMongoClient()
 	if err != nil {
 		return result, err
 	}
@@ -108,7 +108,7 @@ func GetNumberByName(name string) (Number, error) {
 func GetAllNumbers() ([]Number, error) {
 	filter := bson.D{{}}
 	var numbers []Number
-	client, err := src.GetMongoClient()
+	client, err := connections.GetMongoClient()
 	if err != nil {
 		return numbers, err
 	}
@@ -135,7 +135,7 @@ func GetAllNumbers() ([]Number, error) {
 //DeleteOneNumber is
 func DeleteOneNumber(name string) error {
 	filter := bson.D{primitive.E{Key: "name", Value: name}}
-	client, err := src.GetMongoClient()
+	client, err := connections.GetMongoClient()
 	if err != nil {
 		return err
 	}
@@ -150,7 +150,7 @@ func DeleteOneNumber(name string) error {
 //DeleteAllNumbers is
 func DeleteAllNumbers() error {
 	selector := bson.D{{}}
-	client, err := src.GetMongoClient()
+	client, err := connections.GetMongoClient()
 	if err != nil {
 		return err
 	}
@@ -168,7 +168,7 @@ func UpdateNumber(name string) error {
 	updater := bson.D{primitive.E{Key: "$set", Value: bson.D{
 		primitive.E{Key: "value", Value: "3.142"},
 	}}}
-	client, err := src.GetMongoClient()
+	client, err := connections.GetMongoClient()
 	if err != nil {
 		return err
 	}
